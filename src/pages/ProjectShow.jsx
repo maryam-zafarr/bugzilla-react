@@ -62,9 +62,7 @@ const ProjectShow = () => {
         users = {projectDetail.users}
         bugs = {projectDetail.bugs}
       />
-      <Link to={'/projects'} className='btn btn-outline-dark'>Back</Link> &nbsp;
       <Link to={`/projects/${id}/bugs`} className='btn btn-dark'>View Bugs</Link>
-
     </Container>
   </div>
   )
