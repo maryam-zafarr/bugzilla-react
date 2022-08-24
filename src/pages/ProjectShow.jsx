@@ -40,9 +40,7 @@ const ProjectShow = () => {
     await axios.delete(
       'http://localhost:3000/api/v1/projects/' + id
     )
-      .then(() => {
-        window.location = '/projects'
-      })
+    window.location = '/projects'
   }
 
   return (
