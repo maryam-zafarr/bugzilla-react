@@ -28,38 +28,36 @@ const BugCreation = () => {
     <Container>
         <h2>Add Bug</h2>
         <form onSubmit={handleSubmit(createBug)}>
-        <div>
-            <label>Title</label>  <br />
-            <input name='title' {...register('title')} />
-        </div>
-        <div>
-            <label>Description</label> <br />
-            <textarea name='description' {...register('description')} />
-        </div>
-        <div>
-            <label>Type</label> <br />
-            <select name='bug_type' {...register('bug_type')}>
-              <option value='bug'>Bug</option>
-              <option value='feature'>Feature</option>
-            </select>
-        </div>
-        <div>
-            <label>Status</label> <br />
-            <select name='status' {...register('status')}>
-              <option value='new'>New</option>
-              <option value='started'>Started</option>
-              <option value='resolved'>Resolved</option>
-            </select>
-        </div>
-        <div>
-            <label>Deadline</label> <br />
-            <input type='date' name='deadline' {...register('deadline')} />
-        </div>
-
-        <input type='hidden' value='5' name='reporter_id' {...register('reporter_id')} />
-
-        <button className='btn btn-warning'>Submit</button>
-    </form>
+          <div>
+              <label>Title</label>  <br />
+              <input name='title' {...register('title')} />
+          </div>
+          <div>
+              <label>Description</label> <br />
+              <textarea name='description' {...register('description')} />
+          </div>
+          <div>
+              <label>Type</label> <br />
+              <select name='bug_type' {...register('bug_type')}>
+                <option value='bug'>Bug</option>
+                <option value='feature'>Feature</option>
+              </select>
+          </div>
+          <div>
+              <label>Status</label> <br />
+              <select name='status' {...register('status')}>
+                <option value='new'>New</option>
+                <option value='started'>Started</option>
+                <option value='resolved'>Resolved</option>
+              </select>
+          </div>
+          <div>
+              <label>Deadline</label> <br />
+              <input type='date' name='deadline' {...register('deadline')} />
+          </div>
+          <input type='hidden' value='5' name='reporter_id' {...register('reporter_id')} />
+          <button className='btn btn-warning'>Submit</button>
+        </form>
     </Container>
   )
 }
