@@ -1,7 +1,6 @@
 import React from 'react'
 import Bugs from '../components/Bugs'
 import styled from 'styled-components'
-import Navbar from '../components/Navbar'
 import { Link, useLocation } from 'react-router-dom'
 
 const Container = styled.div`
@@ -20,8 +19,6 @@ const BugListing = () => {
   const location = useLocation()
   const id = location.pathname.split('/')[2]
   return (
-    <>
-    <Navbar />
     <Container>
       <Wrapper>
         <Title>Bugs</Title>
@@ -30,7 +27,6 @@ const BugListing = () => {
       <Bugs />
       <Link to={`/projects/${id}`} className='btn btn-outline-dark'>Back</Link>
     </Container>
-  </>
   )
 }
 

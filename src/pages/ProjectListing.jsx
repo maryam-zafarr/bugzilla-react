@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Navbar from '../components/Navbar'
 import Projects from '../components/Projects'
 
 const Container = styled.div`
@@ -12,7 +11,6 @@ const Title = styled.h1`
 
 const ProjectListing = () => (
     <div>
-      <Navbar />
       <Container>
         <Title>Projects</Title>
         <Projects />

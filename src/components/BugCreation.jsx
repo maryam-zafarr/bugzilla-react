@@ -1,27 +1,22 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
+import api from '../axios'
 
 const Container = styled.div`
   margin: 50px 150px;
 `
 
 const BugCreation = () => {
+  const navigate = useNavigate()
   const location = useLocation()
   const id = location.pathname.split('/')[2]
   const { register, handleSubmit } = useForm()
 
   const createBug = async data => {
-    await axios.post(
-      'http://localhost:3000/api/v1/projects/' + id + '/bugs',
-      data
-    )
-      .then(() => {
-        console.log(data)
-        window.location = '/projects/' + id + '/bugs'
-      })
+    await api.post('/projects/' + id + '/bugs', data)
+    navigate('/projects/' + id + '/bugs')
   }
 
   return (

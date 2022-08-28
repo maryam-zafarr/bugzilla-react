@@ -1,22 +1,25 @@
-import axios from 'axios'
+import api from '../axios'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import Bug from './Bug'
+import Error from './Error'
 
 const Bugs = () => {
   const location = useLocation()
   const id = location.pathname.split('/')[2]
   console.log(id)
   const [bugs, setBugs] = useState([])
+  const [error, setError] = useState(false)
+  const header = ['Bug ID', 'Title', 'Reporter', 'Assignee', 'Status', 'Deadline', '']
 
   useEffect(() => {
     const getBugs = async () => {
       try {
-        const res = await axios.get(
-          'http://localhost:3000/api/v1/projects/' + id + '/bugs'
-        )
+        const res = await api.get('/projects/' + id + '/bugs')
         setBugs(res.data)
-      } catch (err) {}
+      } catch (error) {
+        setError(error)
+      }
     }
 
     getBugs()
@@ -24,16 +27,13 @@ const Bugs = () => {
 
   return (
     <div>
+      { error && <Error error={error.message}/> }
       <table className='table'>
         <thead>
           <tr className='head-row'>
-            <td>Bug ID</td>
-            <td>Title</td>
-            <td>Reporter</td>
-            <td>Assignee</td>
-            <td>Status</td>
-            <td>Deadline</td>
-            <td></td>
+          {header.map(item => (
+              <td key={item}>{item}</td>
+          ))}
           </tr>
         </thead>
         <tbody>

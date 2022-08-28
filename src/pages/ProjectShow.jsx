@@ -1,9 +1,9 @@
-import axios from 'axios'
+import api from '../axios'
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import Navbar from '../components/Navbar'
 import ProjectDetails from '../components/ProjectDetails'
+import Error from '../components/Error'
 
 const Container = styled.div`
   margin: 50px 150px;
@@ -22,30 +22,34 @@ const ProjectShow = () => {
   const id = location.pathname.split('/')[2]
   const navigate = useNavigate()
   const [projectDetail, setProjectDetail] = useState([])
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const getProjectDetail = async () => {
       try {
-        const res = await axios.get(
-          'http://localhost:3000/api/v1/projects/' + id
-        )
+        const res = await api.get('/projects/' + id)
         setProjectDetail(res.data)
-      } catch (err) {}
+      } catch (error) {
+        setError(error)
+      }
     }
 
     getProjectDetail()
-  }, [id])
+  })
 
   const deleteProject = async () => {
-    await axios.delete(
-      'http://localhost:3000/api/v1/projects/' + id
-    )
-    window.location = '/projects'
+    try {
+      await api.delete('/projects/' + id)
+    } catch (error) {
+      setError(error)
+    }
+
+    navigate('/projects')
   }
 
   return (
   <div>
-    <Navbar />
+    { error && <Error error={error.message}/> }
     <Container>
       <Wrapper>
         <Left>

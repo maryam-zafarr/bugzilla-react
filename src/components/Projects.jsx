@@ -1,19 +1,22 @@
-import axios from 'axios'
+import api from '../axios'
 import React, { useEffect, useState } from 'react'
 import Project from './Project'
 import '../App.css'
+import Error from './Error'
 
 const Projects = () => {
   const [projects, setProjects] = useState([])
+  const [error, setError] = useState(false)
+  const header = ['Project ID', 'Title', 'Project Manager', 'Team Members', 'Bugs', '']
 
   useEffect(() => {
     const getProjects = async () => {
       try {
-        const res = await axios.get(
-          'http://localhost:3000/api/v1/projects'
-        )
+        const res = await api.get('/projects')
         setProjects(res.data)
-      } catch (err) {}
+      } catch (error) {
+        setError(error)
+      }
     }
 
     getProjects()
@@ -21,15 +24,13 @@ const Projects = () => {
 
   return (
     <div>
+      { error && <Error error={error.message}/> }
       <table className='table'>
         <thead>
           <tr className='head-row'>
-            <td>Project ID</td>
-            <td>Title</td>
-            <td>Project Manager</td>
-            <td>Team Members</td>
-            <td>Bugs</td>
-            <td></td>
+            {header.map(item => (
+              <td key={item}>{item}</td>
+            ))}
           </tr>
         </thead>
         <tbody>
