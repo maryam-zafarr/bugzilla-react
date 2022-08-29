@@ -1,9 +1,9 @@
-import axios from 'axios'
+import api from '../axios'
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import BugDetails from '../components/BugDetails'
-import Navbar from '../components/Navbar'
+import Error from '../components/Error'
 
 const Container = styled.div`
   margin: 50px 150px;
@@ -14,15 +14,16 @@ const BugShow = () => {
   const id = location.pathname.split('/')[2]
   const bugId = location.pathname.split('/')[4]
   const [bugDetail, setBugDetail] = useState([])
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const getBugDetail = async () => {
       try {
-        const res = await axios.get(
-          'http://localhost:3000/api/v1/projects/' + id + '/bugs/' + bugId
-        )
+        const res = await api.get('/projects/' + id + '/bugs/' + bugId)
         setBugDetail(res.data)
-      } catch (err) {}
+      } catch (error) {
+        setError(error)
+      }
     }
 
     getBugDetail()
@@ -30,7 +31,7 @@ const BugShow = () => {
 
   return (
   <div>
-    <Navbar />
+    { error && <Error error={error.message}/> }
     <Container>
       <h4>{bugDetail.title}</h4>
       <BugDetails

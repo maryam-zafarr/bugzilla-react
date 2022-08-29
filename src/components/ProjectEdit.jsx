@@ -1,14 +1,15 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
+import api from '../axios'
 
 const Container = styled.div`
   margin: 50px 150px;
 `
 
 const ProjectEdit = () => {
+  const navigate = useNavigate()
   const { state } = useLocation()
   const { projectDetail } = state
   const { register, handleSubmit } = useForm({
@@ -19,14 +20,8 @@ const ProjectEdit = () => {
   })
 
   const editProject = async data => {
-    await axios.patch(
-      'http://localhost:3000/api/v1/projects/' + projectDetail.id,
-      data
-    )
-      .then(() => {
-        console.log(data)
-        window.location = '/projects/' + projectDetail.id
-      })
+    await api.patch('/projects/' + projectDetail.id, data)
+    navigate(`/projects/${projectDetail.id}`)
   }
 
   return (
